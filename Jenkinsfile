@@ -43,10 +43,15 @@ pipeline {
         }
         stage('Uninstall current Google Chrome') {
             steps {
-                bat '''
-                echo Uninstalling current Google Chrome
-                choco uninstall googlechrome -y
-                '''
+               script {
+                    def chromeInstalled = bat(script: 'choco list --local-only googlechrome', returnStatus: true) == 0
+                    if (chromeInstalled) {
+                        echo 'Uninstalling Google Chrome...'
+                        bat 'choco uninstall googlechrome -y'
+                    } else {
+                        echo 'Google Chrome is not installed. Skipping uninstallation.'
+                    }
+                }
             }
         }
         stage('Install Google Chrome') {
