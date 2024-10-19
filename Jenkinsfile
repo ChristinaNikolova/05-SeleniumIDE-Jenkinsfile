@@ -56,10 +56,8 @@ pipeline {
         }
         stage('Install Google Chrome') {
             steps {
-                bat '''
-                echo Installing Google Chrome version %CHROME_VERSION%
-                choco install googlechrome --version=%CHROME_VERSION% -y --allow-downgrade --ignore-checksums
-                '''
+                def chromeVersion = 'latest'
+                bat "choco install googlechrome --version=${chromeVersion} -y --allow-downgrade --ignore-checksums"
             }
         }
         stage('Download and Install ChromeDriver') {
