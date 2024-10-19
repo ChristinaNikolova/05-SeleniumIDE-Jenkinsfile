@@ -18,7 +18,10 @@ pipeline {
                     def chocoInstalled = bat(script: 'choco --version', returnStatus: true) == 0
                     if (!chocoInstalled) {
                         echo 'Chocolatey is not installed. Installing Chocolatey...'
-                        bat 'powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString(\'https://chocolatey.org/install.ps1\'))"'
+                        bat '''
+                        powershell -Command "Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile install.ps1"
+                        powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((Get-Content .\\install.ps1 -Raw))"
+                        '''
                     } else {
                         echo 'Chocolatey is already installed.'
                     }
