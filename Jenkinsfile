@@ -79,12 +79,13 @@ pipeline {
             steps {
                 bat 'dotnet test SeleniumIde.sln --logger "trx;LogFileName=TestResults.trx"'
             }
-        }
-        post {
+             post {
             always {
                 archiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArchive: true
                 junit '**/TestResults/*.trx' 
             }
         }
+        }
+       
     }
 }
