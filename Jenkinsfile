@@ -32,6 +32,9 @@ pipeline {
             steps {
                 script {
                     bat 'choco install dotnet-6.0-sdk -y'
+                   
+                }
+                script {
                     echo 'Uninstalling .NET SDK...'
                     bat 'choco uninstall dotnet-sdk -y'
                    
