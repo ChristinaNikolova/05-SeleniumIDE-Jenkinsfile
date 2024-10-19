@@ -30,16 +30,8 @@ pipeline {
         }
         stage('Setup .NET Core') {
             steps {
+                echo 'Installing .NET SDK...'
                 bat 'choco install dotnet-6.0-sdk -y'
-                // script {
-                //     echo 'Uninstalling .NET SDK...'
-                //     bat 'choco uninstall dotnet-sdk -y'
-                   
-                // }
-                // script {
-                //     echo 'Installing .NET SDK...'
-                //     bat 'choco install dotnet-6.0-sdk -y'
-                // }
             }
         }
         stage('Uninstall current Google Chrome') {
