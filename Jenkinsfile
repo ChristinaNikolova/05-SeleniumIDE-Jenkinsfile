@@ -31,16 +31,13 @@ pipeline {
         stage('Setup .NET Core') {
             steps {
                 script {
-                    def sdkInstalled = bat(script: 'choco list --local-only dotnet-sdk', returnStatus: true) == 0
+                    echo 'Uninstalling .NET SDK...'
                     bat 'choco uninstall dotnet-sdk -y'
-                    if (sdkInstalled) {
-                        echo 'Uninstalling .NET SDK...'
-                        bat 'choco uninstall dotnet-sdk -y'
-                        bat 'choco install dotnet-sdk -y --version=6.0.100'
-                    } else {
-                        echo 'Installing .NET SDK...'
-                        bat 'choco install dotnet-sdk -y --version=6.0.100'
-                    }
+                   
+                }
+                script {
+                    echo 'Installing .NET SDK...'
+                    bat 'choco install dotnet-sdk -y --version=6.0.100'
                 }
             }
         }
