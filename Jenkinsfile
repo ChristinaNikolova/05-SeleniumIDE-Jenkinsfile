@@ -33,7 +33,8 @@ pipeline {
                 script {
                     def sdkInstalled = bat(script: 'choco list --local-only dotnet-sdk', returnStatus: true) == 0
                     if (sdkInstalled) {
-                        echo '.NET SDK is already installed.'
+                        bat 'choco uninstall dotnet-sdk -y'
+                        bat 'choco install dotnet-sdk -y --version=6.0.100'
                     } else {
                         echo 'Installing .NET SDK...'
                         bat 'choco install dotnet-sdk -y --version=6.0.100'
@@ -51,6 +52,7 @@ pipeline {
                     } else {
                         echo 'Google Chrome is not installed. Skipping uninstallation.'
                     }
+                    bat 'choco install dotnet-6.0-sdk -y'
                 }
             }
         }
