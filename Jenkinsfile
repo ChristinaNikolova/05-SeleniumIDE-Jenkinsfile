@@ -32,7 +32,9 @@ pipeline {
             steps {
                 script {
                     def sdkInstalled = bat(script: 'choco list --local-only dotnet-sdk', returnStatus: true) == 0
+                    bat 'choco uninstall dotnet-sdk -y'
                     if (sdkInstalled) {
+                        echo 'Uninstalling .NET SDK...'
                         bat 'choco uninstall dotnet-sdk -y'
                         bat 'choco install dotnet-sdk -y --version=6.0.100'
                     } else {
@@ -58,8 +60,8 @@ pipeline {
         stage('Install Google Chrome') {
             steps {
                 bat '''
-                echo Installing Google Chrome version %CHROME_VERSION%
-                choco install googlechrome --version=%CHROME_VERSION% -y --allow-downgrade --ignore-checksums
+                echo Installing Google Chrome
+                choco install googlechrome -y
                 '''
             }
         }
