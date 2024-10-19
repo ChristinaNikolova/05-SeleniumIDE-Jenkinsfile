@@ -30,10 +30,15 @@ pipeline {
         }
         stage('Setup .NET Core') {
             steps {
-                bat '''
-                echo Installing .NET SDK 6.0
-                choco install dotnet-sdk -y --version=6.0.100
-                '''
+                script {
+                    def sdkInstalled = bat(script: 'choco list --local-only dotnet-sdk', returnStatus: true) == 0
+                    if (sdkInstalled) {
+                        echo '.NET SDK is already installed.'
+                    } else {
+                        echo 'Installing .NET SDK...'
+                        bat 'choco install dotnet-sdk -y --version=6.0.100'
+                    }
+                }
             }
         }
         stage('Uninstall current Google Chrome') {
