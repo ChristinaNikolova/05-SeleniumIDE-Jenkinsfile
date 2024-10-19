@@ -52,7 +52,6 @@ pipeline {
                     } else {
                         echo 'Google Chrome is not installed. Skipping uninstallation.'
                     }
-                    bat 'choco install dotnet-6.0-sdk -y'
                 }
             }
         }
