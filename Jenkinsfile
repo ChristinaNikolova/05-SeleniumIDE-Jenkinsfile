@@ -41,19 +41,19 @@ pipeline {
                 }
             }
         }
-        // stage('Uninstall current Google Chrome') {
-        //     steps {
-        //        script {
-        //             def chromeInstalled = bat(script: 'choco list --local-only googlechrome', returnStatus: true) == 0
-        //             if (chromeInstalled) {
-        //                 echo 'Uninstalling Google Chrome...'
-        //                 bat 'choco uninstall googlechrome -y'
-        //             } else {
-        //                 echo 'Google Chrome is not installed. Skipping uninstallation.'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Uninstall current Google Chrome') {
+            steps {
+               script {
+                    def chromeInstalled = bat(script: 'choco list --local-only googlechrome', returnStatus: true) == 0
+                    if (chromeInstalled) {
+                        echo 'Uninstalling Google Chrome...'
+                        bat 'choco uninstall googlechrome -y'
+                    } else {
+                        echo 'Google Chrome is not installed. Skipping uninstallation.'
+                    }
+                }
+            }
+        }
         // stage('Install Google Chrome') {
         //     steps {
         //         bat '''
@@ -62,16 +62,16 @@ pipeline {
         //         '''
         //     }
         // }
-        // stage('Download and Install ChromeDriver') {
-        //     steps {
-        //         bat '''
-        //         echo Downloading ChromeDriver version %CHROMEDRIVER_VERSION%
-        //         powershell -command "Invoke-WebRequest -Uri https://chromedriver.storage.googleapis.com/%CHROMEDRIVER_VERSION%/chromedriver_win32.zip -OutFile chromedriver.zip -UseBasicParsing"
-        //         powershell -command "Expand-Archive -Path chromedriver.zip -DestinationPath ."
-        //         powershell -command "Move-Item -Path .\\chromedriver.exe -Destination '%CHROME_INSTALL_PATH%\\chromedriver.exe' -Force"
-        //         '''
-        //     }
-        // }
+        stage('Download and Install ChromeDriver') {
+            steps {
+                bat '''
+                echo Downloading ChromeDriver version %CHROMEDRIVER_VERSION%
+                powershell -command "Invoke-WebRequest -Uri https://chromedriver.storage.googleapis.com/%CHROMEDRIVER_VERSION%/chromedriver_win32.zip -OutFile chromedriver.zip -UseBasicParsing"
+                powershell -command "Expand-Archive -Path chromedriver.zip -DestinationPath ."
+                powershell -command "Move-Item -Path .\\chromedriver.exe -Destination '%CHROME_INSTALL_PATH%\\chromedriver.exe' -Force"
+                '''
+            }
+        }
         stage('Restore dependencies') {
             steps {
                 bat 'dotnet restore SeleniumIde.sln'
