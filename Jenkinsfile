@@ -6,10 +6,10 @@ pipeline {
         CHROME_INSTALL_PATH = 'C:\\Program Files\\Google\\Chrome\\Application'
         CHROMEDRIVER_PATH = '"C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe"'
     }
-    stages{
+    stages {
         stage('Checkout the repo') {
             steps {
-                git brach: 'master', url: 'https://github.com/ChristinaNikolova/05-SeleniumIDE-Jenkinsfile'
+                git branch: 'master', url: 'https://github.com/ChristinaNikolova/05-SeleniumIDE-Jenkinsfile' // Fixed 'brach' to 'branch'
             }
         }
         stage('Setup .NET Core') {
@@ -23,7 +23,7 @@ pipeline {
         stage('Uninstall current Google Chrome') {
             steps {
                 bat '''
-                echo Unistalling current Google Chrome
+                echo Uninstalling current Google Chrome
                 choco uninstall googlechrome -y
                 '''
             }
@@ -53,7 +53,7 @@ pipeline {
         }
         stage('Build the application') {
             steps {
-                bat: 'dotnet build SeleniumIde.sln --configuration Release' 
+                bat 'dotnet build SeleniumIde.sln --configuration Release'
             }
         }
         stage('Run the tests') {
