@@ -37,7 +37,7 @@ pipeline {
                 }
                 script {
                     echo 'Installing .NET SDK...'
-                    bat 'cchoco install dotnet-6.0-sdk -y'
+                    bat 'choco install dotnet-6.0-sdk -y'
                 }
             }
         }
