@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        CHROME_VERSION = '127.0.6533.73'
-        CHROMEDRIVER_VERSION = '127.0.6533.73'
+        CHROME_VERSION = '130.0.6723.5800'
+        CHROMEDRIVER_VERSION = '130.0.6723.5800'
         CHROME_INSTALL_PATH = 'C:\\Program Files\\Google\\Chrome\\Application'
         CHROMEDRIVER_PATH = '"C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe"'
     }
