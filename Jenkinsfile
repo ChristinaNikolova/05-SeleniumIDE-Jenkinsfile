@@ -12,6 +12,19 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/ChristinaNikolova/05-SeleniumIDE-Jenkinsfile' // Fixed 'brach' to 'branch'
             }
         }
+        stage('Install Chocolatey') {
+            steps {
+                script {
+                    def chocoInstalled = bat(script: 'choco --version', returnStatus: true) == 0
+                    if (!chocoInstalled) {
+                        echo 'Chocolatey is not installed. Installing Chocolatey...'
+                        bat 'powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString(\'https://chocolatey.org/install.ps1\'))"'
+                    } else {
+                        echo 'Chocolatey is already installed.'
+                    }
+                }
+            }
+        }
         stage('Setup .NET Core') {
             steps {
                 bat '''
