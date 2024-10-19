@@ -31,9 +31,6 @@ pipeline {
         stage('Setup .NET Core') {
             steps {
                 bat 'choco install dotnet-6.0-sdk -y'
-                script {
-                    
-                }
                 // script {
                 //     echo 'Uninstalling .NET SDK...'
                 //     bat 'choco uninstall dotnet-sdk -y'
